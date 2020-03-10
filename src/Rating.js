@@ -12,8 +12,6 @@ class Rating extends React.PureComponent {
       // Indicates if the user is currently hovering over the rating element
       interacting: false
     };
-    this.onMouseLeave = this.onMouseLeave.bind(this);
-    this.symbolMouseMove = this.symbolMouseMove.bind(this);
     this.symbolClick = this.symbolClick.bind(this);
   }
 
@@ -32,37 +30,19 @@ class Rating extends React.PureComponent {
     }
 
     // When hover ends, call this.props.onHover with no value.
-    if (prevState.interacting && !this.state.interacting) {
-      return this.props.onHover();
-    }
+    // if (prevState.interacting && !this.state.interacting) {
+    //   return this.props.onHover();
+    // }
 
     // When hover over.
-    if (this.state.interacting) {
-      this.props.onHover(this.state.displayValue);
-    }
+    // if (this.state.interacting) {
+    //   this.props.onHover(this.state.displayValue);
+    // }
   }
 
   symbolClick(symbolIndex, event) {
     const value = this.calculateDisplayValue(symbolIndex, event);
     this.props.onClick(value, event);
-  }
-
-  symbolMouseMove(symbolIndex, event) {
-    const value = this.calculateDisplayValue(symbolIndex, event);
-    // This call should cause an update only if the state changes.
-    // Mainly the first time the mouse enters and whenever the value changes.
-    // So DidComponentUpdate is NOT called for every mouse movement.
-    this.setState({
-      interacting: !this.props.readonly,
-      displayValue: value
-    });
-  }
-
-  onMouseLeave() {
-    this.setState({
-      displayValue: this.props.value,
-      interacting: false
-    });
   }
 
   calculateDisplayValue(symbolIndex, event) {
@@ -154,9 +134,6 @@ class Rating extends React.PureComponent {
           direction={direction}
           {...(!readonly && {
             onClick: this.symbolClick,
-            onMouseMove: this.symbolMouseMove,
-            onTouchMove: this.symbolMouseMove,
-            onTouchEnd: this.symbolClick
           })}
         />
       );
@@ -170,7 +147,7 @@ class Rating extends React.PureComponent {
         tabIndex={tabIndex}
         aria-label={this.props['aria-label']}
         {...(!readonly && {
-          onMouseLeave: this.onMouseLeave
+          // onMouseLeave: this.onMouseLeave
         })}
       >
         {symbolNodes}
@@ -219,7 +196,7 @@ Rating.propTypes = typeof __DEV__ !== 'undefined' && __DEV__ && {
     PropTypes.element
   ]),
   onClick: PropTypes.func.isRequired,
-  onHover: PropTypes.func.isRequired
+  // onHover: PropTypes.func.isRequired
 };
 
 export default Rating;

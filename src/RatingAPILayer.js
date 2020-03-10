@@ -11,7 +11,6 @@ class RatingAPILayer extends React.PureComponent {
       value: props.initialRating
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleHover = this.handleHover.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -30,13 +29,6 @@ class RatingAPILayer extends React.PureComponent {
         value: newValue
       }, () => this.props.onChange(this.state.value));
     }
-  }
-
-  handleHover(displayValue) {
-    const value = displayValue === undefined
-      ? displayValue
-      : this.translateDisplayValueToValue(displayValue);
-    this.props.onHover(value);
   }
 
   translateDisplayValueToValue(displayValue) {
@@ -94,7 +86,6 @@ class RatingAPILayer extends React.PureComponent {
         fullSymbol={fullSymbol}
         placeholderSymbol={placeholderSymbol}
         onClick={this.handleClick}
-        onHover={this.handleHover}
       />
     );
   }
